@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/card_item.dart';
+import 'package:the_memory_match_game/game_over_dialog.dart';
 import 'package:the_memory_match_game/game_score.dart';
 import 'package:the_memory_match_game/game_timer.dart';
 
@@ -25,6 +26,7 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
   int score = 0;
   int time = 0;
   Timer? timer;
+  bool _isGameOver = false;
 
   @override
   void initState() {
@@ -70,7 +72,21 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
       setState(() {
         time = time + 1;
       });
+
+      if (_isGameOver) {
+        timer!.cancel();
+      }
     });
+  }
+
+  bool _checkIfGameOver() {
+    for (int i = 0; i < _cards!.length; i++) {
+      if (_cards![i].state == CardState.hidden) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   void _onCardPressed(int index) {
@@ -86,6 +102,10 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
           card1.state = CardState.guessed;
           card2.state = CardState.guessed;
           score += 10;
+          if (_checkIfGameOver()) {
+            _isGameOver = true;
+            _showGameOverDialog();
+          }
         } else {
           Future.delayed(const Duration(milliseconds: 1000), () {
             setState(() {
@@ -95,6 +115,30 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
           });
         }
       }
+    });
+  }
+
+  void _showGameOverDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return GameOverDialog(
+          time: time,
+          onPlayAgainPressed: _resetGame,
+        );
+      },
+    );
+  }
+
+  void _resetGame() {
+    Navigator.of(context).pop(true);
+    setState(() {
+      _cards = _generateCards(_gridSize!);
+      time = 0;
+      _isGameOver = false;
+
+      timer!.cancel();
+      startTimer();
     });
   }
 
