@@ -23,8 +23,9 @@ class MemoryCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: cardItem.state == CardState.visible
-              ? Colors.amberAccent
+          color: cardItem.state == CardState.visible ||
+                  cardItem.state == CardState.guessed
+              ? cardItem.color
               : Colors.grey,
           borderRadius: BorderRadius.circular(10),
         ),
