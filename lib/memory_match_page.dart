@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/card_item.dart';
+import 'package:the_memory_match_game/game_score.dart';
 
 import 'memory_card.dart';
 
@@ -19,6 +20,8 @@ class MemoryMatchPage extends StatefulWidget {
 class _MemoryMatchPageState extends State<MemoryMatchPage> {
   int? _gridSize;
   List<CardItem>? _cards;
+  int score = 0;
+
   @override
   void initState() {
     super.initState();
@@ -69,8 +72,9 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
         if (card1.value == card2.value) {
           card1.state = CardState.guessed;
           card2.state = CardState.guessed;
+          score += 10;
         } else {
-          Future.delayed(Duration(milliseconds: 1000), () {
+          Future.delayed(const Duration(milliseconds: 1000), () {
             setState(() {
               card1.state = CardState.hidden;
               card2.state = CardState.hidden;
@@ -89,9 +93,15 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
       ),
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          //mainAxisAlignment: MainAxisAlignment.start,
+          //crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Expanded(
+            GameScore(
+              score: score,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width,
+              width: MediaQuery.of(context).size.width,
               child: GridView.count(
                 crossAxisCount: _gridSize!,
                 children: List.generate(_cards!.length, (index) {
