@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/card_item.dart';
+import 'package:the_memory_match_game/features/game/models/card_item.dart';
 
 class MemoryCard extends StatelessWidget {
   final CardItem cardItem;
@@ -21,7 +21,7 @@ class MemoryCard extends StatelessWidget {
         }
       },
       child: Container(
-        margin: EdgeInsets.all(4),
+        margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           color: cardItem.state == CardState.visible ||
                   cardItem.state == CardState.guessed

@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/card_item.dart';
-import 'package:the_memory_match_game/game_over_dialog.dart';
-import 'package:the_memory_match_game/game_score.dart';
-import 'package:the_memory_match_game/game_timer.dart';
+import 'package:the_memory_match_game/features/game/models/card_item.dart';
+import 'package:the_memory_match_game/features/game/ui/game_timer.dart';
 
 import 'memory_card.dart';
 
@@ -15,9 +13,8 @@ class MemoryMatchPage extends StatefulWidget {
     required this.gridSize,
     super.key,
   });
-
   @override
-  _MemoryMatchPageState createState() => _MemoryMatchPageState();
+  State<MemoryMatchPage> createState() => _MemoryMatchPageState();
 }
 
 class _MemoryMatchPageState extends State<MemoryMatchPage> {
@@ -68,7 +65,7 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
   }
 
   startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (t) {
+    timer = Timer.periodic(const Duration(seconds: 1), (t) {
       setState(() {
         time = time + 1;
       });
@@ -104,7 +101,6 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
           score += 10;
           if (_checkIfGameOver()) {
             _isGameOver = true;
-            _showGameOverDialog();
           }
         } else {
           Future.delayed(const Duration(milliseconds: 1000), () {
@@ -118,20 +114,7 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
     });
   }
 
-  void _showGameOverDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return GameOverDialog(
-          time: time,
-          onPlayAgainPressed: _resetGame,
-        );
-      },
-    );
-  }
-
   void _resetGame() {
-    Navigator.of(context).pop(true);
     setState(() {
       _cards = _generateCards(_gridSize!);
       time = 0;
@@ -170,6 +153,24 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
                 }),
               ),
             ),
+            if (_isGameOver)
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: SizedBox(
+                  height: 50.0,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.amberAccent[700],
+                      textStyle: const TextStyle(fontSize: 18),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                    ),
+                    onPressed: () => _resetGame(),
+                    child: const Text('TRY AGAIN'),
+                  ),
+                ),
+              )
           ],
         ),
       ),
