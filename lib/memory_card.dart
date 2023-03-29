@@ -32,7 +32,7 @@ class MemoryCard extends StatelessWidget {
           child: cardItem.state == CardState.hidden
               ? null
               : Icon(
-                  Icons.access_alarm_sharp,
+                  cardItem.icon,
                   size: 50,
                   color: Colors.white,
                 ),

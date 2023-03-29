@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/card_item.dart';
 
@@ -39,7 +41,7 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
       ));
     }
 
-    // cards.shuffle(Random());
+    cards.shuffle(Random());
     return cards;
   }
 
@@ -65,6 +67,8 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
         CardItem card2 = _cards![selectedCardIndexes[1]];
 
         if (card1.value == card2.value) {
+          card1.state = CardState.guessed;
+          card2.state = CardState.guessed;
         } else {
           Future.delayed(Duration(milliseconds: 1000), () {
             setState(() {
