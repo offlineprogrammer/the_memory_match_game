@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/card_item.dart';
 import 'package:the_memory_match_game/game_score.dart';
+import 'package:the_memory_match_game/game_timer.dart';
 
 import 'memory_card.dart';
 
@@ -21,12 +23,15 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
   int? _gridSize;
   List<CardItem>? _cards;
   int score = 0;
+  int time = 0;
+  Timer? timer;
 
   @override
   void initState() {
     super.initState();
     _gridSize = widget.gridSize;
     _cards = _generateCards(_gridSize!);
+    startTimer();
   }
 
   List<CardItem> _generateCards(int gridSize) {
@@ -58,6 +63,14 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
     }
 
     return selectedCardIndexes;
+  }
+
+  startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (t) {
+      setState(() {
+        time = time + 1;
+      });
+    });
   }
 
   void _onCardPressed(int index) {
@@ -95,9 +108,9 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.start,
           //crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            GameScore(
-              score: score,
+          children: [
+            GameTimer(
+              time: time,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.width,

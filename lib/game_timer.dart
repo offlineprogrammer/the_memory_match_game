@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class GameScore extends StatelessWidget {
-  final int score;
-  const GameScore({
+class GameTimer extends StatelessWidget {
+  final int time;
+  const GameTimer({
     Key? key,
-    required this.score,
+    required this.time,
   }) : super(key: key);
 
   @override
@@ -17,18 +17,14 @@ class GameScore extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Text(
-            'Score',
-            style: TextStyle(
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold,
-            ),
+          const Icon(
+            Icons.timer,
           ),
           const SizedBox(
             height: 6.0,
           ),
           Text(
-            '$score',
+            '$time',
             style: const TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
           ),
         ],
