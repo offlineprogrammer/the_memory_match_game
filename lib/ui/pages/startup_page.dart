@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:the_memory_match_game/features/game/ui/memory_match_page.dart';
+import 'package:the_memory_match_game/ui/pages/memory_match_page.dart';
 
 class StartUpPage extends ConsumerWidget {
   const StartUpPage({super.key});

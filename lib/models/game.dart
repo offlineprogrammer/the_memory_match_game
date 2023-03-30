@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:the_memory_match_game/features/game/models/card_item.dart';
+import 'package:the_memory_match_game/models/card_item.dart';
 
 class Game {
   int gridSize;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/features/startup/ui/startup_page.dart';
+import 'package:the_memory_match_game/ui/pages/startup_page.dart';
 
 class TheMemoryMatchGame extends StatelessWidget {
   const TheMemoryMatchGame({

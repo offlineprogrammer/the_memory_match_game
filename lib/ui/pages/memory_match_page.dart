@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:the_memory_match_game/features/game/models/game.dart';
-import 'package:the_memory_match_game/features/game/ui/game_timer.dart';
+import 'package:the_memory_match_game/models/game.dart';
+import 'package:the_memory_match_game/ui/widgets/game_timer.dart';
 
-import 'memory_card.dart';
+import '../widgets/memory_card.dart';
 
 class MemoryMatchPage extends StatefulWidget {
   const MemoryMatchPage({

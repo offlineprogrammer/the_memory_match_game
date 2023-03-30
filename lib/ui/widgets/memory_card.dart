@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/features/game/models/card_item.dart';
+import 'package:the_memory_match_game/models/card_item.dart';
 
 class MemoryCard extends StatelessWidget {
   final CardItem cardItem;
