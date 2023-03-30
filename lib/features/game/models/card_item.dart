@@ -14,21 +14,21 @@ class CardItem {
   IconData get icon {
     switch (value) {
       case 1:
-        return Icons.ac_unit;
+        return Icons.celebration;
       case 2:
-        return Icons.access_alarm;
+        return Icons.directions_car_filled;
       case 3:
-        return Icons.accessibility;
+        return Icons.directions_bike;
       case 4:
-        return Icons.account_balance;
+        return Icons.house;
       case 5:
-        return Icons.account_box;
+        return Icons.local_shipping;
       case 6:
-        return Icons.account_circle;
+        return Icons.fastfood;
       case 7:
-        return Icons.add_alarm;
+        return Icons.local_airport;
       case 8:
-        return Icons.add_alert;
+        return Icons.forest;
       default:
         return Icons.warning;
     }
