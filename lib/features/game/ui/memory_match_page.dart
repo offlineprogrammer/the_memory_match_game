@@ -8,9 +8,7 @@ import 'package:the_memory_match_game/features/game/ui/game_timer.dart';
 import 'memory_card.dart';
 
 class MemoryMatchPage extends StatefulWidget {
-  final int gridSize;
   const MemoryMatchPage({
-    required this.gridSize,
     super.key,
   });
   @override
@@ -24,7 +22,7 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
   @override
   void initState() {
     super.initState();
-    game = Game(widget.gridSize);
+    game = Game(4);
     startTimer();
   }
 
@@ -34,7 +32,7 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
         game!.time = game!.time + 1;
       });
 
-      if (game!.isGameOver()) {
+      if (game!.isGameOver) {
         timer!.cancel();
       }
     });
@@ -66,7 +64,7 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
               height: MediaQuery.of(context).size.width,
               width: MediaQuery.of(context).size.width,
               child: GridView.count(
-                crossAxisCount: widget.gridSize,
+                crossAxisCount: game!.gridSize,
                 children: List.generate(game!.cards.length, (index) {
                   return MemoryCard(
                     index: index,
@@ -76,7 +74,7 @@ class _MemoryMatchPageState extends State<MemoryMatchPage> {
                 }),
               ),
             ),
-            if (game!.isGameOver())
+            if (game!.isGameOver)
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: SizedBox(

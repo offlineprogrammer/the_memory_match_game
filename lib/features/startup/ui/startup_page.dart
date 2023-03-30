@@ -34,7 +34,7 @@ class StartUpPage extends ConsumerWidget {
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (BuildContext context) {
-                        return const MemoryMatchPage(gridSize: 4);
+                        return const MemoryMatchPage();
                       }));
                     },
                     child: const Text('START'),

@@ -6,7 +6,7 @@ import 'package:the_memory_match_game/features/game/models/card_item.dart';
 class Game {
   int gridSize;
   List<CardItem> cards = [];
-
+  bool isGameOver = false;
   int time = 0;
 
   Game(this.gridSize) {
@@ -32,6 +32,7 @@ class Game {
 
   void resetGame() {
     generateCards();
+    isGameOver = false;
     time = 0;
   }
 
@@ -47,9 +48,7 @@ class Game {
         card1.state = CardState.guessed;
         card2.state = CardState.guessed;
 
-        // if (isGameOver()) {
-        //   _isGameOver = true;
-        // }
+        isGameOver = _isGameOver();
       } else {
         Future.delayed(const Duration(milliseconds: 1000), () {
           card1.state = CardState.hidden;
@@ -71,7 +70,7 @@ class Game {
     return selectedCardIndexes;
   }
 
-  bool isGameOver() {
+  bool _isGameOver() {
     for (int i = 0; i < cards.length; i++) {
       if (cards[i].state == CardState.hidden) {
         return false;
