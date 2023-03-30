@@ -20,15 +20,17 @@ class MemoryCard extends StatelessWidget {
           onCardPressed(index);
         }
       },
-      child: Container(
+      child: Card(
         margin: const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: cardItem.state == CardState.visible ||
-                  cardItem.state == CardState.guessed
-              ? cardItem.color
-              : Colors.grey,
-          borderRadius: BorderRadius.circular(10),
+        elevation: 8,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
+        color: cardItem.state == CardState.visible ||
+                cardItem.state == CardState.guessed
+            ? cardItem.color
+            : Colors.grey,
         child: Center(
           child: cardItem.state == CardState.hidden
               ? null

@@ -9,34 +9,37 @@ class GameTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(left: 40, right: 40, bottom: 20, top: 20),
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 26.0),
-      decoration: BoxDecoration(
-        color: Colors.red[700],
-        border: Border.all(
-          width: 2,
-        ),
-        borderRadius: BorderRadius.circular(12),
+    return Card(
+      margin: const EdgeInsets.all(40),
+      elevation: 8,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          const Icon(
-            Icons.timer,
-            size: 40,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: Text(
-              '$time',
-              style:
-                  const TextStyle(fontSize: 34.0, fontWeight: FontWeight.bold),
+      color: Colors.red[700],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            const Expanded(
+              flex: 1,
+              child: Icon(
+                Icons.timer,
+                size: 40,
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: Text(
+                  '${time}s',
+                  style: const TextStyle(
+                      fontSize: 34.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
