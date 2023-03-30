@@ -14,7 +14,7 @@ class GameTimer extends StatelessWidget {
       margin: const EdgeInsets.only(left: 40, right: 40, bottom: 20, top: 20),
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 26.0),
       decoration: BoxDecoration(
-        color: Colors.amberAccent[700],
+        color: Colors.red[700],
         border: Border.all(
           width: 2,
         ),
