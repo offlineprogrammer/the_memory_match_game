@@ -1,53 +1,80 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/models/card_item.dart';
+import 'package:the_memory_match_game/utils/icons.dart';
 
 class Game {
   int gridSize;
   List<CardItem> cards = [];
   bool isGameOver = false;
-  int time = 0;
+
+  Set<IconData> icons = {};
 
   Game(this.gridSize) {
     generateCards();
   }
 
-  void generateCards() {
-    cards = [];
-    for (int i = 0; i < (gridSize * gridSize / 2); i++) {
-      int cardValue = i + 1;
-      cards.add(CardItem(
-        cardValue,
-        state: CardState.hidden,
-      ));
-      cards.add(CardItem(
-        cardValue,
-        state: CardState.hidden,
-      ));
+  void generateIcons() {
+    icons = <IconData>{};
+    for (int j = 0; j < (gridSize * gridSize / 2); j++) {
+      final IconData icon = _getRandomCardIcon();
+      icons.add(icon);
+      icons.add(icon); // Add the icon twice to ensure pairs are generated.
     }
+  }
 
+  IconData _getRandomCardIcon() {
+    final Random random = Random();
+    IconData icon;
+    do {
+      icon = cardIcons[random.nextInt(cardIcons.length)];
+    } while (icons.contains(icon));
+    return icon;
+  }
+
+  void generateCards() {
+    generateIcons();
+    cards = [];
+    final List<Color> cardColors = Colors.primaries.toList();
+    for (int i = 0; i < (gridSize * gridSize / 2); i++) {
+      final cardValue = i + 1;
+      final IconData icon = icons.elementAt(i);
+      final Color cardColor = cardColors[i % cardColors.length];
+      final List<CardItem> newCards =
+          _createCardItems(icon, cardColor, cardValue);
+      cards.addAll(newCards);
+    }
     cards.shuffle(Random());
   }
 
   void resetGame() {
     generateCards();
     isGameOver = false;
-    time = 0;
+  }
+
+  List<CardItem> _createCardItems(
+      IconData icon, Color cardColor, int cardValue) {
+    return List.generate(
+        2,
+        (index) => CardItem(
+              cardValue,
+              CardState.hidden,
+              icon,
+              cardColor,
+            ));
   }
 
   void onCardPressed(int index) {
     cards[index].state = CardState.visible;
-    List<int> selectedCardIndexes = _getSelectedCardIndexes();
-
-    if (selectedCardIndexes.length == 2) {
-      CardItem card1 = cards[selectedCardIndexes[0]];
-      CardItem card2 = cards[selectedCardIndexes[1]];
-
+    final List<int> visibleCardIndexes = _getVisibleCardIndexes();
+    if (visibleCardIndexes.length == 2) {
+      final CardItem card1 = cards[visibleCardIndexes[0]];
+      final CardItem card2 = cards[visibleCardIndexes[1]];
       if (card1.value == card2.value) {
         card1.state = CardState.guessed;
         card2.state = CardState.guessed;
-
         isGameOver = _isGameOver();
       } else {
         Future.delayed(const Duration(milliseconds: 1000), () {
@@ -58,25 +85,16 @@ class Game {
     }
   }
 
-  List<int> _getSelectedCardIndexes() {
-    List<int> selectedCardIndexes = [];
-
-    for (int i = 0; i < cards.length; i++) {
-      if (cards[i].state == CardState.visible) {
-        selectedCardIndexes.add(i);
-      }
-    }
-
-    return selectedCardIndexes;
+  List<int> _getVisibleCardIndexes() {
+    return cards
+        .asMap()
+        .entries
+        .where((entry) => entry.value.state == CardState.visible)
+        .map((entry) => entry.key)
+        .toList();
   }
 
   bool _isGameOver() {
-    for (int i = 0; i < cards.length; i++) {
-      if (cards[i].state == CardState.hidden) {
-        return false;
-      }
-    }
-
-    return true;
+    return cards.every((card) => card.state == CardState.guessed);
   }
 }

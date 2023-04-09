@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GameTimer extends StatelessWidget {
-  final int time;
+  final Duration time;
   const GameTimer({
     Key? key,
     required this.time,
@@ -29,13 +29,11 @@ class GameTimer extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 1,
-              child: Center(
-                child: Text(
-                  '${time}s',
-                  style: const TextStyle(
-                      fontSize: 34.0, fontWeight: FontWeight.bold),
-                ),
+              flex: 2,
+              child: Text(
+                time.toString().split('.').first.padLeft(8, "0"),
+                style: const TextStyle(
+                    fontSize: 28.0, fontWeight: FontWeight.bold),
               ),
             ),
           ],

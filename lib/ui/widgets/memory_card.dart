@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/models/card_item.dart';
 
 class MemoryCard extends StatelessWidget {
-  final CardItem cardItem;
+  final CardItem card;
   final Function(int) onCardPressed;
   final int index;
   const MemoryCard({
     Key? key,
-    required this.cardItem,
+    required this.card,
     required this.index,
     required this.onCardPressed,
   }) : super(key: key);
 
+  void handleCardTap() {
+    if (card.state == CardState.hidden) {
+      onCardPressed(index);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if (cardItem.state == CardState.hidden) {
-          onCardPressed(index);
-        }
-      },
+      onTap: handleCardTap,
       child: Card(
         margin: const EdgeInsets.all(4),
         elevation: 8,
@@ -27,18 +29,20 @@ class MemoryCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        color: cardItem.state == CardState.visible ||
-                cardItem.state == CardState.guessed
-            ? cardItem.color
-            : Colors.grey,
+        color:
+            card.state == CardState.visible || card.state == CardState.guessed
+                ? card.color
+                : Colors.grey,
         child: Center(
-          child: cardItem.state == CardState.hidden
+          child: card.state == CardState.hidden
               ? null
-              : Icon(
-                  cardItem.icon,
-                  size: 50,
-                  color: Colors.white,
-                ),
+              : LayoutBuilder(builder: (context, constraint) {
+                  return Icon(
+                    card.icon,
+                    size: constraint.biggest.height * 0.8,
+                    color: Colors.white,
+                  );
+                }),
         ),
       ),
     );

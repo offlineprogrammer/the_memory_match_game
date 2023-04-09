@@ -1,35 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:the_memory_match_game/ui/pages/memory_match_page.dart';
-import 'package:the_memory_match_game/ui/widgets/game_button.dart';
 
-class StartUpPage extends ConsumerWidget {
+import 'package:the_memory_match_game/ui/widgets/game_options.dart';
+import 'package:the_memory_match_game/utils/constants.dart';
+
+class StartUpPage extends StatelessWidget {
   const StartUpPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Center(
-                child: Text(
-                  'MEMORY MATCH',
+        child: Center(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Text(
+                  gameTitle,
                   style: TextStyle(fontSize: 24, color: Colors.white),
                 ),
-              ),
-              GameButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return const MemoryMatchPage();
-                  }));
-                },
-                title: 'START',
-              ),
-            ]),
+                GameOptions(),
+              ]),
+        ),
       ),
     );
   }
