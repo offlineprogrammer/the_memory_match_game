@@ -40,10 +40,10 @@ class GameControlsBottomSheet extends StatelessWidget {
           const SizedBox(height: 10),
           GameButton(
             onPressed: () {
-              Navigator.of(context).pushReplacement(
+              Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (BuildContext context) {
                 return const StartUpPage();
-              }));
+              }), (Route<dynamic> route) => false);
             },
             title: 'QUIT',
             color: quitButtonColor,

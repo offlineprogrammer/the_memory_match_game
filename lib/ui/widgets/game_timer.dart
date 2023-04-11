@@ -31,6 +31,7 @@ class GameTimer extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Text(
+                textAlign: TextAlign.center,
                 time.toString().split('.').first.padLeft(8, "0"),
                 style: const TextStyle(
                     fontSize: 28.0, fontWeight: FontWeight.bold),

@@ -44,19 +44,21 @@ class RestartGame extends StatelessWidget {
     if (isGameOver) {
       return GameButton(
         onPressed: () {
-          Navigator.of(context).pushReplacement(
+          Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (BuildContext context) {
             return const StartUpPage();
-          }));
+          }), (Route<dynamic> route) => false);
         },
         title: 'TRY AGAIN',
         color: Colors.amberAccent[700]!,
+        width: 200,
       );
     } else {
       return GameButton(
         onPressed: () => showGameControls(context),
         title: 'PAUSE',
         color: Colors.amberAccent[700]!,
+        width: 200,
       );
     }
   }
