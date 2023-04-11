@@ -32,4 +32,4 @@ jobs:
         with:
           commit_message: Commit the artifacts.
 permissions:
-  contents: read|write|none
+  contents: write
