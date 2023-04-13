@@ -19,7 +19,6 @@ class MemoryMatchPageWeb extends StatelessWidget {
       body: LayoutBuilder(builder: (context, constraints) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 500),
-          // color: Colors.blueGrey, // lightGreen[200],
           padding: constraints.maxWidth < 500
               ? EdgeInsets.zero
               : const EdgeInsets.all(30.0),
@@ -31,7 +30,6 @@ class MemoryMatchPageWeb extends StatelessWidget {
                 maxWidth: 700,
               ),
               decoration: BoxDecoration(
-                //   color: const Color.fromRGBO(255, 255, 255, 1),
                 borderRadius: BorderRadius.circular(2.0),
               ),
               child: GameBoard(

@@ -20,7 +20,7 @@ class MemoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: handleCardTap,
       child: Card(
         margin: const EdgeInsets.all(4),

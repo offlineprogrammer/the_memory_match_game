@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/ui/pages/startup_page.dart';
-import 'package:the_memory_match_game/ui/widgets/game_button.dart';
 import 'package:the_memory_match_game/ui/widgets/game_controls_bottomsheet.dart';
 
 class RestartGame extends StatelessWidget {
@@ -39,27 +38,23 @@ class RestartGame extends StatelessWidget {
     }
   }
 
+  void navigateback(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) {
+      return const StartUpPage();
+    }), (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (isGameOver) {
-      return GameButton(
-        onPressed: () {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (BuildContext context) {
-            return const StartUpPage();
-          }), (Route<dynamic> route) => false);
-        },
-        title: 'TRY AGAIN',
-        color: Colors.amberAccent[700]!,
-        width: 200,
-      );
-    } else {
-      return GameButton(
-        onPressed: () => showGameControls(context),
-        title: 'PAUSE',
-        color: Colors.amberAccent[700]!,
-        width: 200,
-      );
-    }
+    return IconButton(
+      color: Colors.amberAccent[700]!,
+      icon: (isGameOver)
+          ? const Icon(Icons.replay_circle_filled)
+          : const Icon(Icons.pause_circle_filled),
+      iconSize: 40,
+      onPressed: () =>
+          isGameOver ? navigateback(context) : showGameControls(context),
+    );
   }
 }

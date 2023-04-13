@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:the_memory_match_game/models/game.dart';
@@ -59,9 +60,21 @@ class _GameBoardState extends State<GameBoard> {
 
   @override
   Widget build(BuildContext context) {
+    final aspectRatio = MediaQuery.of(context).size.aspectRatio;
+
     return SafeArea(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(
+            height: 20,
+          ),
+          RestartGame(
+            isGameOver: game.isGameOver,
+            pauseGame: () => pauseTimer(),
+            restartGame: () => _resetGame(),
+            continueGame: () => startTimer(),
+          ),
           GameTimer(
             time: duration,
           ),
@@ -69,6 +82,7 @@ class _GameBoardState extends State<GameBoard> {
             flex: 3,
             child: GridView.count(
               crossAxisCount: game.gridSize,
+              childAspectRatio: kIsWeb ? aspectRatio : aspectRatio * 2,
               children: List.generate(game.cards.length, (index) {
                 return MemoryCard(
                   index: index,
@@ -76,15 +90,6 @@ class _GameBoardState extends State<GameBoard> {
                   onCardPressed: game.onCardPressed,
                 );
               }),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 60.0),
-            child: RestartGame(
-              isGameOver: game.isGameOver,
-              pauseGame: () => pauseTimer(),
-              restartGame: () => _resetGame(),
-              continueGame: () => startTimer(),
             ),
           ),
         ],

@@ -10,7 +10,10 @@ class GameTimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(40),
+      margin: const EdgeInsets.symmetric(
+        vertical: 20,
+        horizontal: 60,
+      ),
       elevation: 8,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
