@@ -40,13 +40,14 @@ class MemoryCard extends StatelessWidget {
         child: Center(
           child: card.state == CardState.hidden
               ? null
-              : LayoutBuilder(builder: (context, constraint) {
-                  return Icon(
-                    card.icon,
-                    size: constraint.biggest.height * 0.8,
-                    color: Colors.white,
-                  );
-                }),
+              : SizedBox.expand(
+                  child: FittedBox(
+                    child: Icon(
+                      card.icon,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
         ),
       ),
     );
