@@ -7,6 +7,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  shared_preferences: ^2.1.0
+  confetti: ^0.7.0    
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/models/card_item.dart';
 
@@ -5,6 +7,7 @@ class MemoryCard extends StatelessWidget {
   final CardItem card;
   final Function(int) onCardPressed;
   final int index;
+
   const MemoryCard({
     Key? key,
     required this.card,
@@ -14,7 +17,9 @@ class MemoryCard extends StatelessWidget {
 
   void handleCardTap() {
     if (card.state == CardState.hidden) {
-      onCardPressed(index);
+      Timer(const Duration(milliseconds: 100), () {
+        onCardPressed(index);
+      });
     }
   }
 
@@ -23,7 +28,6 @@ class MemoryCard extends StatelessWidget {
     return InkWell(
       onTap: handleCardTap,
       child: Card(
-        margin: const EdgeInsets.all(4),
         elevation: 8,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(

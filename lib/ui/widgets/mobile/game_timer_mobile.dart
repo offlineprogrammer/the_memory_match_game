@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class GameTimer extends StatelessWidget {
+class GameTimerMobile extends StatelessWidget {
   final Duration time;
-  const GameTimer({
+  const GameTimerMobile({
     Key? key,
     required this.time,
   }) : super(key: key);

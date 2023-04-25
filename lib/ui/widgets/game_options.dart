@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/ui/pages/memory_match_page_mobile.dart';
-import 'package:the_memory_match_game/ui/pages/memory_match_page_web.dart';
+import 'package:the_memory_match_game/ui/pages/memory_match_page.dart';
 import 'package:the_memory_match_game/ui/widgets/game_button.dart';
 import 'package:the_memory_match_game/utils/constants.dart';
 
@@ -11,11 +9,7 @@ class GameOptions extends StatelessWidget {
   static Route<dynamic> _routeBuilder(BuildContext context, int gameLevel) {
     return MaterialPageRoute(
       builder: (_) {
-        if (kIsWeb) {
-          return MemoryMatchPageWeb(gameLevel: gameLevel);
-        } else {
-          return MemoryMatchPageMobile(gameLevel: gameLevel);
-        }
+        return MemoryMatchPage(gameLevel: gameLevel);
       },
     );
   }

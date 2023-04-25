@@ -9,6 +9,7 @@ class RestartGame extends StatelessWidget {
   final VoidCallback pauseGame;
   final VoidCallback restartGame;
   final VoidCallback continueGame;
+  final Color color;
 
   const RestartGame({
     Key? key,
@@ -16,6 +17,7 @@ class RestartGame extends StatelessWidget {
     required this.pauseGame,
     required this.restartGame,
     required this.continueGame,
+    this.color = Colors.white,
   }) : super(key: key);
 
   Future<void> showGameControls(BuildContext context) async {
@@ -48,7 +50,7 @@ class RestartGame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      color: Colors.amberAccent[700]!,
+      color: color,
       icon: (isGameOver)
           ? const Icon(Icons.replay_circle_filled)
           : const Icon(Icons.pause_circle_filled),
