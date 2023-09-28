@@ -6,33 +6,14 @@ import 'package:the_memory_match_game/models/card_item.dart';
 import 'package:the_memory_match_game/utils/icons.dart';
 
 class Game {
-  int gridSize;
-  List<CardItem> cards = [];
-  bool isGameOver = false;
-
-  Set<IconData> icons = {};
-
   Game(this.gridSize) {
     generateCards();
   }
+  final int gridSize;
 
-  void generateIcons() {
-    icons = <IconData>{};
-    for (int j = 0; j < (gridSize * gridSize / 2); j++) {
-      final IconData icon = _getRandomCardIcon();
-      icons.add(icon);
-      icons.add(icon); // Add the icon twice to ensure pairs are generated.
-    }
-  }
-
-  IconData _getRandomCardIcon() {
-    final Random random = Random();
-    IconData icon;
-    do {
-      icon = cardIcons[random.nextInt(cardIcons.length)];
-    } while (icons.contains(icon));
-    return icon;
-  }
+  List<CardItem> cards = [];
+  bool isGameOver = false;
+  Set<IconData> icons = {};
 
   void generateCards() {
     generateIcons();
@@ -49,21 +30,18 @@ class Game {
     cards.shuffle(Random());
   }
 
+  void generateIcons() {
+    icons = <IconData>{};
+    for (int j = 0; j < (gridSize * gridSize / 2); j++) {
+      final IconData icon = _getRandomCardIcon();
+      icons.add(icon);
+      icons.add(icon); // Add the icon twice to ensure pairs are generated.
+    }
+  }
+
   void resetGame() {
     generateCards();
     isGameOver = false;
-  }
-
-  List<CardItem> _createCardItems(
-      IconData icon, Color cardColor, int cardValue) {
-    return List.generate(
-        2,
-        (index) => CardItem(
-              cardValue,
-              CardState.hidden,
-              icon,
-              cardColor,
-            ));
   }
 
   void onCardPressed(int index) {
@@ -83,6 +61,27 @@ class Game {
         });
       }
     }
+  }
+
+  List<CardItem> _createCardItems(
+      IconData icon, Color cardColor, int cardValue) {
+    return List.generate(
+      2,
+      (index) => CardItem(
+        value: cardValue,
+        icon: icon,
+        color: cardColor,
+      ),
+    );
+  }
+
+  IconData _getRandomCardIcon() {
+    final Random random = Random();
+    IconData icon;
+    do {
+      icon = cardIcons[random.nextInt(cardIcons.length)];
+    } while (icons.contains(icon));
+    return icon;
   }
 
   List<int> _getVisibleCardIndexes() {

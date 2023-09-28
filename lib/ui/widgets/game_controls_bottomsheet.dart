@@ -11,11 +11,10 @@ class GameControlsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Center(
             child: Text(
@@ -41,9 +40,13 @@ class GameControlsBottomSheet extends StatelessWidget {
           GameButton(
             onPressed: () {
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return const StartUpPage();
-              }), (Route<dynamic> route) => false);
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const StartUpPage();
+                  },
+                ),
+                (Route<dynamic> route) => false,
+              );
             },
             title: 'QUIT',
             color: quitButtonColor,

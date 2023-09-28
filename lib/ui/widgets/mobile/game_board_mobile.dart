@@ -124,7 +124,7 @@ class _GameBoardMobileState extends State<GameBoardMobile> {
               ),
             ],
           ),
-          showConfetti ? GameConfetti() : const SizedBox(),
+          showConfetti ? const GameConfetti() : const SizedBox(),
         ],
       ),
     );

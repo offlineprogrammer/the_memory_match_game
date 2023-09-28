@@ -4,7 +4,9 @@ import 'package:the_memory_match_game/ui/widgets/game_button.dart';
 import 'package:the_memory_match_game/utils/constants.dart';
 
 class GameOptions extends StatelessWidget {
-  const GameOptions({Key? key}) : super(key: key);
+  const GameOptions({
+    super.key,
+  });
 
   static Route<dynamic> _routeBuilder(BuildContext context, int gameLevel) {
     return MaterialPageRoute(

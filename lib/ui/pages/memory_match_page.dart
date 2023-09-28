@@ -10,17 +10,19 @@ class MemoryMatchPage extends StatelessWidget {
   });
 
   final int gameLevel;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: kIsWeb
-              ? GameBoard(
-                  gameLevel: gameLevel,
-                )
-              : GameBoardMobile(
-                  gameLevel: gameLevel,
-                )),
+        child: kIsWeb
+            ? GameBoard(
+                gameLevel: gameLevel,
+              )
+            : GameBoardMobile(
+                gameLevel: gameLevel,
+              ),
+      ),
     );
   }
 }

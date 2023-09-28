@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/models/card_item.dart';
 
 class MemoryCard extends StatelessWidget {
-  final CardItem card;
-  final Function(int) onCardPressed;
-  final int index;
-
   const MemoryCard({
-    Key? key,
     required this.card,
     required this.index,
     required this.onCardPressed,
-  }) : super(key: key);
+    super.key,
+  });
+
+  final CardItem card;
+  final int index;
+  final ValueChanged<int> onCardPressed;
 
   void handleCardTap() {
     if (card.state == CardState.hidden) {

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class GameBestTimeMobile extends StatelessWidget {
-  final int bestTime;
   const GameBestTimeMobile({
-    Key? key,
     required this.bestTime,
-  }) : super(key: key);
+    super.key,
+  });
+
+  final int bestTime;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,9 @@ class GameBestTimeMobile extends StatelessWidget {
                     .first
                     .padLeft(8, "0"),
                 style: const TextStyle(
-                    fontSize: 28.0, fontWeight: FontWeight.bold),
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
