@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:the_memory_match_game/ui/widgets/web/game_board.dart';
 import 'package:the_memory_match_game/ui/widgets/mobile/game_board_mobile.dart';
@@ -15,13 +14,19 @@ class MemoryMatchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: kIsWeb
-            ? GameBoard(
+        child: LayoutBuilder(
+          builder: ((context, constraints) {
+            if (constraints.maxWidth > 720) {
+              return GameBoard(
                 gameLevel: gameLevel,
-              )
-            : GameBoardMobile(
+              );
+            } else {
+              return GameBoardMobile(
                 gameLevel: gameLevel,
-              ),
+              );
+            }
+          }),
+        ),
       ),
     );
   }

@@ -15,7 +15,7 @@ class MemoryCard extends StatelessWidget {
   final int index;
   final ValueChanged<int> onCardPressed;
 
-  void handleCardTap() {
+  void _handleCardTap() {
     if (card.state == CardState.hidden) {
       Timer(const Duration(milliseconds: 100), () {
         onCardPressed(index);
@@ -26,7 +26,7 @@ class MemoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: handleCardTap,
+      onTap: _handleCardTap,
       child: Card(
         elevation: 8,
         clipBehavior: Clip.antiAlias,
