@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class GameTimerMobile extends StatelessWidget {
-  final Duration time;
   const GameTimerMobile({
-    Key? key,
     required this.time,
-  }) : super(key: key);
+    super.key,
+  });
+
+  final Duration time;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,9 @@ class GameTimerMobile extends StatelessWidget {
                 textAlign: TextAlign.center,
                 time.toString().split('.').first.padLeft(8, "0"),
                 style: const TextStyle(
-                    fontSize: 28.0, fontWeight: FontWeight.bold),
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

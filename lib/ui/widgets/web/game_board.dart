@@ -129,7 +129,7 @@ class _GameBoardState extends State<GameBoard> {
             bestTime: bestTime,
           ),
         ),
-        showConfetti ? GameConfetti() : const SizedBox(),
+        showConfetti ? const GameConfetti() : const SizedBox(),
       ],
     );
   }

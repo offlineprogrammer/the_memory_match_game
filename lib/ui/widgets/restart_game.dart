@@ -5,20 +5,20 @@ import 'package:the_memory_match_game/ui/pages/startup_page.dart';
 import 'package:the_memory_match_game/ui/widgets/game_controls_bottomsheet.dart';
 
 class RestartGame extends StatelessWidget {
-  final bool isGameOver;
-  final VoidCallback pauseGame;
-  final VoidCallback restartGame;
-  final VoidCallback continueGame;
-  final Color color;
-
   const RestartGame({
-    Key? key,
     required this.isGameOver,
     required this.pauseGame,
     required this.restartGame,
     required this.continueGame,
     this.color = Colors.white,
-  }) : super(key: key);
+    super.key,
+  });
+
+  final VoidCallback pauseGame;
+  final VoidCallback restartGame;
+  final VoidCallback continueGame;
+  final bool isGameOver;
+  final Color color;
 
   Future<void> showGameControls(BuildContext context) async {
     pauseGame();
