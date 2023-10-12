@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/ui/pages/startup_page.dart';
-import 'package:the_memory_match_game/ui/widgets/game_controls_bottomsheet.dart';
+import 'package:go_router/go_router.dart';
+import 'package:the_memory_match_game/common/navigation/routes.dart';
+import 'package:the_memory_match_game/features/the_game/ui/widgets/game_controls_bottomsheet.dart';
 
 class RestartGame extends StatelessWidget {
   const RestartGame({
@@ -41,10 +42,9 @@ class RestartGame extends StatelessWidget {
   }
 
   void navigateback(BuildContext context) {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (BuildContext context) {
-      return const StartUpPage();
-    }), (Route<dynamic> route) => false);
+    context.goNamed(
+      AppRoute.home.name,
+    );
   }
 
   @override

@@ -1,5 +1,6 @@
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/ui/pages/startup_page.dart';
+import 'package:the_memory_match_game/common/navigation/router.dart';
 
 class TheMemoryMatchGame extends StatelessWidget {
   const TheMemoryMatchGame({
@@ -8,11 +9,14 @@ class TheMemoryMatchGame extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const StartUpPage(),
-      title: 'The MemoryMatch Game',
-      theme: ThemeData.dark(),
-      debugShowCheckedModeBanner: false,
+    return Authenticator(
+      child: MaterialApp.router(
+        routerConfig: router,
+        builder: Authenticator.builder(),
+        title: 'The MemoryMatch Game',
+        theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

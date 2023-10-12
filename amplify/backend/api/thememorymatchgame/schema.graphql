@@ -1,0 +1,5 @@
+type GameSession @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  level: Int!
+  durationInSeconds: Int!
+}

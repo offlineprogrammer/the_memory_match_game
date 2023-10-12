@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/models/card_item.dart';
-import 'package:the_memory_match_game/utils/icons.dart';
+import 'package:the_memory_match_game/features/the_game/data/card_item.dart';
+import 'package:the_memory_match_game/common/utils/icons.dart';
 
-class Game {
-  Game(this.gridSize) {
+class GameController {
+  GameController(this.gridSize) {
     generateCards();
   }
   final int gridSize;

@@ -2,17 +2,18 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:the_memory_match_game/features/game_session/controllers/gamesessions_controller.dart';
 
-import 'package:the_memory_match_game/models/game.dart';
-import 'package:the_memory_match_game/ui/widgets/game_confetti.dart';
+import 'package:the_memory_match_game/features/the_game/controllers/game_controller.dart';
+import 'package:the_memory_match_game/features/the_game/ui/widgets/game_confetti.dart';
 
-import 'package:the_memory_match_game/ui/widgets/memory_card.dart';
-import 'package:the_memory_match_game/ui/widgets/restart_game.dart';
-import 'package:the_memory_match_game/ui/widgets/web/game_best_time.dart';
-import 'package:the_memory_match_game/ui/widgets/web/game_timer.dart';
+import 'package:the_memory_match_game/features/the_game/ui/widgets/memory_card.dart';
+import 'package:the_memory_match_game/features/the_game/ui/widgets/restart_game.dart';
+import 'package:the_memory_match_game/features/the_game/ui/widgets/web/game_best_time.dart';
+import 'package:the_memory_match_game/features/the_game/ui/widgets/web/game_timer.dart';
 
-class GameBoard extends StatefulWidget {
+class GameBoard extends ConsumerStatefulWidget {
   const GameBoard({
     required this.gameLevel,
     super.key,
@@ -21,29 +22,41 @@ class GameBoard extends StatefulWidget {
   final int gameLevel;
 
   @override
-  State<GameBoard> createState() => _GameBoardState();
+  GameBoardState createState() => GameBoardState();
 }
 
-class _GameBoardState extends State<GameBoard> {
+class GameBoardState extends ConsumerState<GameBoard> {
   late Timer timer;
-  late Game game;
+  late GameController game;
   late Duration duration;
   int bestTime = 0;
   bool showConfetti = false;
   @override
   void initState() {
     super.initState();
-    game = Game(widget.gameLevel);
+    game = GameController(widget.gameLevel);
     duration = const Duration();
-    startTimer();
-    getBestTime();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      startTimer();
+      getBestTime();
+    });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   void getBestTime() async {
-    SharedPreferences gameSP = await SharedPreferences.getInstance();
-    if (gameSP.getInt('${widget.gameLevel.toString()}BestTime') != null) {
-      bestTime = gameSP.getInt('${widget.gameLevel.toString()}BestTime')!;
-    }
+    ref
+        .watch(gameSessionsControllerProvider.notifier)
+        .getBestTimeGameSession(widget.gameLevel)
+        .then((value) {
+      bestTime = value.durationInSeconds;
+    });
+
     setState(() {});
   }
 
@@ -56,12 +69,12 @@ class _GameBoardState extends State<GameBoard> {
 
       if (game.isGameOver) {
         timer.cancel();
-        SharedPreferences gameSP = await SharedPreferences.getInstance();
-        if (gameSP.getInt('${widget.gameLevel.toString()}BestTime') == null ||
-            gameSP.getInt('${widget.gameLevel.toString()}BestTime')! >
-                duration.inSeconds) {
-          gameSP.setInt(
-              '${widget.gameLevel.toString()}BestTime', duration.inSeconds);
+        ref.watch(gameSessionsControllerProvider.notifier).addGameSession(
+              durationInSeconds: duration.inSeconds,
+              level: widget.gameLevel,
+            );
+
+        if (bestTime != 0 && duration.inSeconds < bestTime) {
           setState(() {
             showConfetti = true;
             bestTime = duration.inSeconds;

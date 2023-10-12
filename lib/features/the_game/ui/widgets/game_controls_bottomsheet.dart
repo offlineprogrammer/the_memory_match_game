@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/ui/pages/startup_page.dart';
-import 'package:the_memory_match_game/ui/widgets/game_button.dart';
-import 'package:the_memory_match_game/utils/constants.dart';
+import 'package:go_router/go_router.dart';
+import 'package:the_memory_match_game/common/navigation/routes.dart';
+import 'package:the_memory_match_game/features/the_game/ui/widgets/game_button.dart';
+import 'package:the_memory_match_game/common/utils/constants.dart';
 
 class GameControlsBottomSheet extends StatelessWidget {
   const GameControlsBottomSheet({
@@ -24,14 +25,14 @@ class GameControlsBottomSheet extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           GameButton(
-            onPressed: () => Navigator.of(context).pop(false),
+            onPressed: () => context.pop(false),
             title: 'CONTINUE',
             color: continueButtonColor,
             width: 200,
           ),
           const SizedBox(height: 10),
           GameButton(
-            onPressed: () => Navigator.of(context).pop(true),
+            onPressed: () => context.pop(true),
             title: 'RESTART',
             color: restartButtonColor,
             width: 200,
@@ -39,13 +40,8 @@ class GameControlsBottomSheet extends StatelessWidget {
           const SizedBox(height: 10),
           GameButton(
             onPressed: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const StartUpPage();
-                  },
-                ),
-                (Route<dynamic> route) => false,
+              context.goNamed(
+                AppRoute.home.name,
               );
             },
             title: 'QUIT',

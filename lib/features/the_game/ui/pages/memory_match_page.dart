@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:the_memory_match_game/ui/widgets/web/game_board.dart';
-import 'package:the_memory_match_game/ui/widgets/mobile/game_board_mobile.dart';
+import 'package:the_memory_match_game/features/the_game/ui/widgets/web/game_board.dart';
+import 'package:the_memory_match_game/features/the_game/ui/widgets/mobile/game_board_mobile.dart';
 
 class MemoryMatchPage extends StatelessWidget {
   const MemoryMatchPage({
